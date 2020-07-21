@@ -296,14 +296,18 @@ namespace Dos.Tools
                     tableview[o],
                     cbToupperFrstword.Checked,
                     ConnectionModel.DbType);
+                builder.TablePre = txtPre.Text.Trim();
+                builder.TableNext = txtNext.Text.Trim();
                 var path = txtPath.Text + "\\" + txt_wjj.Text.Trim();
                 //修改后效果：自动生成路劲文件夹 by kelyljk 2016-2-2
                 if (!Directory.Exists(path))
                     Directory.CreateDirectory(path);
                 //修改原因：需要生成简写表名 例 Com_aa 需要Com文件夹 aa类
                 //修改后效果：根据txtTableStar文本框所填内容来识别去除内容  by kelyljk 2016-2-2
+                String fileName = builder.TablePre + ro + builder.TableNext;
+                fileName = fileName.Replace(" ", "");
                 using (StreamWriter sw = new StreamWriter(Path.Combine(path,
-                    ro + ".cs"),
+                    fileName + ".cs"),
                     false,
                     Encoding.UTF8))
                 {
